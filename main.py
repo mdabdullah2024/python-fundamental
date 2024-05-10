@@ -1,9 +1,20 @@
 from flask import Flask , redirect , url_for , request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import (LoginManager,UserMixin,current_user,login_required,login_user,logout_user)
+
+from flask_principal import Principal,Permission,RoleNeed
+
+
+
+
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///booking.db'
+app.config('SECRET_KEY') = 'secret_key'
 db = SQLAlchemy(app)
+
+loginManager = LoginManager(app)
+principal = Principal(app) 
 
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key = True)
